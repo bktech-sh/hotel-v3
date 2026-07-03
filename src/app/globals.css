@@ -52,6 +52,9 @@
   --text-4xl: clamp(2.4rem, 1.9rem + 2.4vw, 3.4rem);
   --text-5xl: clamp(3rem, 2.2rem + 3.6vw, 4.75rem);
 
+  /* --- Extra small breakpoint for finer mobile control --- */
+  --breakpoint-xs: 25rem; /* 400px */
+
   /* --- Spacing rhythm (8px base, uneven editorial steps) --- */
   --spacing-section: clamp(4rem, 3rem + 5vw, 8rem);
 

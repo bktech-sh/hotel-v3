@@ -37,14 +37,16 @@ export default function AvailabilityBar({ floating = false }: { floating?: boole
       onSubmit={(e) => e.preventDefault()}
       className={[
         "grid gap-px overflow-hidden rounded-2xl bg-line text-left",
-        "grid-cols-1 sm:grid-cols-[1fr_1fr_auto_auto]",
+        // Mobile: check-in / check-out share a row, guests + submit below.
+        // From sm up: single flowing row.
+        "grid-cols-2 sm:grid-cols-[1fr_1fr_auto_auto]",
         floating
           ? "w-full max-w-2xl shadow-float ring-1 ring-black/5"
           : "w-full shadow-card",
       ].join(" ")}
     >
       {/* Check-in */}
-      <div className="bg-paper-raised px-5 py-4">
+      <div className="bg-paper-raised px-4 py-3.5 sm:px-5 sm:py-4">
         <label htmlFor={inId} className={labelBase}>
           <Calendar width={14} height={14} />
           Check in
@@ -59,7 +61,7 @@ export default function AvailabilityBar({ floating = false }: { floating?: boole
       </div>
 
       {/* Check-out */}
-      <div className="bg-paper-raised px-5 py-4">
+      <div className="bg-paper-raised px-4 py-3.5 sm:px-5 sm:py-4">
         <label htmlFor={outId} className={labelBase}>
           <Calendar width={14} height={14} />
           Check out
@@ -74,14 +76,14 @@ export default function AvailabilityBar({ floating = false }: { floating?: boole
         />
       </div>
 
-      {/* Guests stepper */}
-      <div className="bg-paper-raised px-5 py-4 sm:min-w-[9.5rem]">
+      {/* Guests stepper — spans full width on mobile, auto on desktop */}
+      <div className="col-span-2 bg-paper-raised px-4 py-3.5 sm:col-span-1 sm:min-w-[9.5rem] sm:px-5 sm:py-4">
         <span className={labelBase} id={`${inId}-glabel`}>
           <Users width={14} height={14} />
           Guests
         </span>
         <div
-          className="mt-1.5 flex items-center justify-between gap-3"
+          className="mt-1.5 flex max-w-[9rem] items-center justify-between gap-3 sm:max-w-none"
           role="group"
           aria-labelledby={`${inId}-glabel`}
         >
@@ -109,10 +111,10 @@ export default function AvailabilityBar({ floating = false }: { floating?: boole
         </div>
       </div>
 
-      {/* Submit */}
+      {/* Submit — full-width CTA on mobile, inline on desktop */}
       <button
         type="submit"
-        className="flex items-center justify-center gap-2 bg-ember px-6 py-4 font-600 text-on-ember transition-colors hover:bg-walnut cursor-pointer"
+        className="col-span-2 flex items-center justify-center gap-2 bg-ember px-6 py-4 font-600 text-on-ember transition-colors hover:bg-walnut cursor-pointer sm:col-span-1"
       >
         Check dates
         <ArrowRight width={18} height={18} />

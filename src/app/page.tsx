@@ -83,12 +83,12 @@ export default function Home() {
 
           {/* Hero content: everything centered — eyebrow, headline, copy, and
               the availability card, all stacked and horizontally centered. */}
-          <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1240px] flex-col items-center justify-center px-5 py-28 text-center sm:px-8">
-            <p className="mb-5 flex items-center justify-center gap-2 text-xs font-500 uppercase tracking-[0.22em] text-ember-bright animate-[fade_1.1s_var(--ease-out-soft)_both] sm:text-sm sm:tracking-[0.28em]">
-              <Leaf width={16} height={16} className="flex-none" />
+          <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1240px] flex-col items-center justify-center px-5 py-20 text-center sm:px-8 sm:py-28">
+            <p className="mb-4 inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-timber/45 px-3.5 py-1.5 text-[0.65rem] font-600 uppercase tracking-[0.2em] text-ember-bright shadow-soft backdrop-blur-sm animate-[fade_1.1s_var(--ease-out-soft)_both] sm:mb-5 sm:px-4 sm:text-sm sm:tracking-[0.28em]">
+              <Leaf width={14} height={14} className="flex-none sm:h-4 sm:w-4" />
               Lembang Highlands · West Java
             </p>
-            <h1 className="mx-auto max-w-3xl font-serif text-[2.6rem] font-500 leading-[1.05] text-on-timber sm:text-5xl animate-[rise_0.9s_var(--ease-out-soft)_both]">
+            <h1 className="mx-auto max-w-3xl font-serif text-[2rem] font-500 leading-[1.08] text-on-timber xs:text-[2.4rem] sm:text-5xl sm:leading-[1.05] animate-[rise_0.9s_var(--ease-out-soft)_both]">
               Come in from the cold.
               <br />
               <span className="italic text-ember-bright">
@@ -96,18 +96,18 @@ export default function Home() {
               </span>
             </h1>
             <p
-              className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-on-timber/85 animate-[rise_0.9s_var(--ease-out-soft)_both]"
+              className="mx-auto mt-4 max-w-md text-[0.95rem] leading-relaxed text-on-timber/85 sm:mt-6 sm:max-w-xl sm:text-lg animate-[rise_0.9s_var(--ease-out-soft)_both]"
               style={{ animationDelay: "120ms" }}
             >
               A warm timber house on a pine-forest ridge above Lembang, where the
-              coffee is local, the mountain air is cold, and the room is always
-              warm. We saved you a chair by the hearth.
+              coffee is local, the air is cold, and the room is always warm. We
+              saved you a chair by the hearth.
             </p>
 
             {/* Centered availability card */}
             <div
               id="book"
-              className="mt-10 flex w-full scroll-mt-28 justify-center animate-[rise_0.9s_var(--ease-out-soft)_both] sm:mt-12"
+              className="mt-8 flex w-full scroll-mt-28 justify-center animate-[rise_0.9s_var(--ease-out-soft)_both] sm:mt-12"
               style={{ animationDelay: "240ms" }}
             >
               <AvailabilityBar floating />
