@@ -1,26 +1,177 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================================
+   KAYON RIDGE — warm woody mountain-cabin design system (Tailwind v4)
+   Palette + type synthesized from ui-ux-pro-max --domain deep-dives.
+   See design-system/kayon-ridge/MASTER.md for the source-of-truth + override log.
+   Lane: lit timber cabin at dusk — walnut browns, forest green, ember/amber
+   firelight, warm paper off-white. Distinct from Grand Malindo (near-black
+   cinematic) and Bunda (airy botanical cream).
+   ========================================================================== */
+
+@theme {
+  /* --- Light "paper" surfaces --- */
+  --color-paper: #f5f0e5;        /* warm soft-cream base */
+  --color-paper-raised: #fbf7ef; /* cards / raised paper */
+  --color-ink: #2e2118;          /* dark walnut body ink (~12.9:1 on paper) */
+  --color-ink-muted: #6b5d4f;    /* muted walnut (~5.4:1 on paper) */
+  --color-line: #e3d8c6;         /* warm hairline border */
+  --color-line-strong: #d8c8b0;
+
+  /* --- Brand woods & fire --- */
+  --color-timber: #241a12;         /* deep walnut dusk (dark bands) */
+  --color-timber-raised: #31241a;  /* raised timber panel */
+  --color-walnut: #5a3d2b;         /* primary timber brown */
+  --color-forest: #38513b;         /* deep pine green */
+  --color-forest-soft: #8da98a;    /* lightened pine for dark bands */
+  --color-ember: #c0722f;          /* firelight amber accent (~4.6:1 on paper) */
+  --color-ember-bright: #e0904a;   /* brighter ember for dark bands (~6.9:1 on timber) */
+
+  /* --- On-color text --- */
+  --color-on-timber: #efe4d2;       /* warm off-white on timber (~12.3:1) */
+  --color-on-timber-muted: #c4b29b; /* muted off-white on timber (~6.6:1) */
+  --color-on-ember: #fff9f0;
+  --color-on-walnut: #f7f1e6;
+
+  /* Map Tailwind's base bg/fg to our paper lane */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+
+  /* --- Type: Lora (serif display) + Raleway (humanist sans body) --- */
+  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-raleway), ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Modular type scale (1.25 major-third), fluid via clamp --- */
+  --text-xs: 0.79rem;
+  --text-sm: 0.889rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.35rem;
+  --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 1.9rem);
+  --text-3xl: clamp(1.95rem, 1.6rem + 1.6vw, 2.6rem);
+  --text-4xl: clamp(2.4rem, 1.9rem + 2.4vw, 3.4rem);
+  --text-5xl: clamp(3rem, 2.2rem + 3.6vw, 4.75rem);
+
+  /* --- Spacing rhythm (8px base, uneven editorial steps) --- */
+  --spacing-section: clamp(4rem, 3rem + 5vw, 8rem);
+
+  /* --- Radii: organic, slightly varied --- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* --- Soft natural shadows (warm-tinted, never harsh) --- */
+  --shadow-soft: 0 2px 8px rgba(46, 33, 24, 0.06);
+  --shadow-card: 0 12px 32px -12px rgba(46, 33, 24, 0.22);
+  --shadow-float: 0 24px 60px -20px rgba(36, 26, 18, 0.4);
+
+  /* --- Motion --- */
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --animate-rise: rise 0.9s var(--ease-out-soft) both;
+  --animate-fade: fade 1.1s var(--ease-out-soft) both;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base ------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  font-weight: 500;
+}
+
+/* Warm paper-grain texture — very subtle, tactile, cabin feel.
+   Layered SVG fractal noise; opacity kept low so text stays crisp. */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+/* On dark timber the grain reads via screen blend, a touch stronger */
+.grain-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: screen;
+}
+
+/* Accessible focus ring — warm ember, visible on paper & timber */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-ember);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3.5rem;
+  z-index: 100;
+  background: var(--color-timber);
+  color: var(--color-on-timber);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  transition: top 0.2s var(--ease-out-soft);
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Scroll-reveal utility: hidden until .is-visible toggled by IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s var(--ease-out-soft),
+    transform 0.8s var(--ease-out-soft);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Honor reduced-motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
 }

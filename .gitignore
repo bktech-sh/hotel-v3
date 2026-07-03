@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ui-ux-pro-max skill toolkit (regenerate with `uipro init --ai claude`)
+/.claude/
