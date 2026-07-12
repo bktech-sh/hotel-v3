@@ -160,3 +160,55 @@ export const Phone = (p: IconProps) => (
     <path d="M6 3.5c1 0 1.6.4 2 1.5l.9 2.3c.3.8.1 1.4-.5 2l-1 .9a11 11 0 0 0 4.4 4.4l.9-1c.6-.6 1.2-.8 2-.5l2.3.9c1 .4 1.5 1 1.5 2v1.7c0 1.2-.9 2-2.1 1.9C11.9 20.7 3.3 12.1 2.6 5.6 2.5 4.4 3.3 3.5 4.5 3.5H6Z" />
   </svg>
 );
+
+export const ChevronLeft = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M15 5l-7 7 7 7" />
+  </svg>
+);
+
+export const ChevronRight = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M9 5l7 7-7 7" />
+  </svg>
+);
+
+export const Check = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M5 12.5l4.5 4.5L19 7" />
+  </svg>
+);
+
+export const Filter = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 6h16M7 12h10M10 18h4" />
+  </svg>
+);
+
+export const Images = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="3" y="6" width="14" height="12" rx="2" />
+    <path d="M7 12.5l2.3-2.3a1.5 1.5 0 0 1 2.1 0l3.6 3.6M13.5 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
+    <path d="M20 8.5V17a2 2 0 0 1-2 2H9.5" />
+  </svg>
+);
+
+export const Ruler = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 15.5 15.5 4l4.5 4.5L8.5 20 4 15.5Z" />
+    <path d="M8 12l1.5 1.5M11 9l1.5 1.5M14 6l1.5 1.5" />
+  </svg>
+);
+
+export const View = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+export const Whatsapp = (p: IconProps) => (
+  <svg {...base(p)} fill="currentColor" stroke="none">
+    <path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Zm0 1.8a7.7 7.7 0 0 1 6.5 11.8l-.2.4.7 2.6-2.7-.7-.4.2A7.7 7.7 0 1 1 12 4.3Zm-3.1 3.3c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.1 1.8 2.9 4.4 4 .6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.4-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8 1-.1.1-.3.2-.6 0-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.5-1.8-.1-.3 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.5-.9-2-.2-.5-.4-.5-.6-.5h-.4Z" />
+  </svg>
+);

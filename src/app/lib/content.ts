@@ -34,8 +34,12 @@ export const img = {
     {
       id: "gunungan",
       name: "Gunungan Loft",
+      meaning: "“the tree of life” — the room up under the eaves",
       tagline: "The tree-of-life room, up under the eaves",
-      size: "48 m² · sleeps 2",
+      blurb:
+        "A warm loft bedroom under timber beams, with a low window onto the pines. Wake to birdsong and the smell of woodsmoke from the kitchen below.",
+      size: "48 m²",
+      sleeps: "2 guests · 1 queen",
       view: "Valley & pine canopy",
       priceIDR: 2_450_000,
       img: {
@@ -48,8 +52,12 @@ export const img = {
     {
       id: "pinus",
       name: "Rumah Pinus",
+      meaning: "“pine house” — a forest-floor suite",
       tagline: "Forest-floor suite with a private timber deck",
-      size: "62 m² · sleeps 2–3",
+      blurb:
+        "A calm suite in warm neutral tones opening onto a private timber deck, forest right at the door. Good for a slow week of remote work by the window.",
+      size: "62 m²",
+      sleeps: "2–3 guests · 1 king",
       view: "Pine forest, west-facing",
       priceIDR: 3_200_000,
       img: {
@@ -62,8 +70,12 @@ export const img = {
     {
       id: "kebun-teh",
       name: "Kebun Teh Villa",
+      meaning: "“tea garden villa” — our two-bedroom family house",
       tagline: "Two-bedroom family house over the tea garden",
-      size: "95 m² · sleeps 4–5",
+      blurb:
+        "A spacious two-bedroom villa over the tea garden, wood floors and soft textiles throughout, with room enough for the whole family and the valley view below.",
+      size: "95 m²",
+      sleeps: "4–5 guests · 2 bedrooms",
       view: "Tea gardens & valley below",
       priceIDR: 4_850_000,
       img: {
@@ -203,3 +215,14 @@ export const priceFmt = (n: number) =>
     currency: "IDR",
     maximumFractionDigits: 0,
   }).format(n);
+
+export const CONTACT = {
+  address: "Jalan Punclut Ridge KM 4, Lembang, Kabupaten Bandung Barat, Jawa Barat 40391",
+  province: "West Java (Jawa Barat), Indonesia",
+  phone: "+62 22 123 4567",
+  whatsapp: "+62 812 3456 7890",
+  email: "stay@kayonridge.id",
+  airportCode: "BDO",
+  airportName: "Husein Sastranegara",
+  transferMins: "70 minutes",
+};

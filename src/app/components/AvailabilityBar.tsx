@@ -1,114 +1,54 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
-import { Calendar, Users, ArrowRight } from "./icons";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowRight } from "./icons";
+import { DateRangePicker } from "./booking/DateRangePicker";
+import { GuestDropdown } from "./booking/GuestDropdown";
+import { EMPTY_SEARCH } from "@/app/lib/booking";
 
-/* Availability bar — fully keyboard-navigable: native date inputs (arrow keys,
-   type-to-set), a labelled guest stepper with +/- buttons, and a submit.
-   Rendered floating over the hero on desktop, stacked on mobile. */
+/* Availability bar — popover date-range picker + guest dropdown, the same
+   controls used on /book. Rendered floating over the hero on desktop,
+   stacked on mobile. Submitting navigates to /book with the search
+   prefilled as query params. */
 export default function AvailabilityBar({ floating = false }: { floating?: boolean }) {
-  const inId = useId();
-  const outId = useId();
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
-  const [guests, setGuests] = useState(2);
+  const router = useRouter();
+  const [search, setSearch] = useState(EMPTY_SEARCH);
 
-  // Compute sensible defaults on the client only (Date is unavailable at build/SSR
-  // determinism boundaries; doing it in an effect also avoids hydration mismatch).
-  useEffect(() => {
-    const today = new Date();
-    const iso = (d: Date) => d.toISOString().slice(0, 10);
-    const inD = new Date(today);
-    inD.setDate(inD.getDate() + 14);
-    const outD = new Date(inD);
-    outD.setDate(outD.getDate() + 2);
-    setCheckIn(iso(inD));
-    setCheckOut(iso(outD));
-  }, []);
-
-  const fieldBase =
-    "peer w-full bg-transparent text-ink font-500 outline-none [color-scheme:light] cursor-pointer";
-  const labelBase =
-    "flex items-center gap-1.5 text-[0.7rem] font-600 uppercase tracking-[0.14em] text-ink-muted";
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (search.checkIn) params.set("checkIn", search.checkIn);
+    if (search.checkOut) params.set("checkOut", search.checkOut);
+    if (search.guests) params.set("guests", search.guests);
+    router.push(`/book${params.size ? `?${params.toString()}` : ""}`);
+  };
 
   return (
     <form
       aria-label="Check availability"
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={onSubmit}
       className={[
         "grid gap-px overflow-hidden rounded-2xl bg-line text-left",
-        // Mobile: check-in / check-out share a row, guests + submit below.
-        // From sm up: single flowing row.
-        "grid-cols-2 sm:grid-cols-[1fr_1fr_auto_auto]",
+        "grid-cols-2 sm:grid-cols-[1fr_1fr_auto]",
         floating
           ? "w-full max-w-2xl shadow-float ring-1 ring-black/5"
           : "w-full shadow-card",
       ].join(" ")}
     >
-      {/* Check-in */}
-      <div className="bg-paper-raised px-4 py-3.5 sm:px-5 sm:py-4">
-        <label htmlFor={inId} className={labelBase}>
-          <Calendar width={14} height={14} />
-          Check in
-        </label>
-        <input
-          id={inId}
-          type="date"
-          value={checkIn}
-          onChange={(e) => setCheckIn(e.target.value)}
-          className={`${fieldBase} mt-1.5`}
+      <div className="col-span-2 bg-paper-raised px-4 py-1 sm:col-span-1 sm:px-5 sm:py-1">
+        <DateRangePicker
+          checkIn={search.checkIn}
+          checkOut={search.checkOut}
+          onChange={({ checkIn, checkOut }) => setSearch((s) => ({ ...s, checkIn, checkOut }))}
         />
       </div>
 
-      {/* Check-out */}
-      <div className="bg-paper-raised px-4 py-3.5 sm:px-5 sm:py-4">
-        <label htmlFor={outId} className={labelBase}>
-          <Calendar width={14} height={14} />
-          Check out
-        </label>
-        <input
-          id={outId}
-          type="date"
-          value={checkOut}
-          min={checkIn || undefined}
-          onChange={(e) => setCheckOut(e.target.value)}
-          className={`${fieldBase} mt-1.5`}
+      <div className="col-span-2 bg-paper-raised px-4 py-1 sm:col-span-1 sm:min-w-[9.5rem] sm:px-5 sm:py-1">
+        <GuestDropdown
+          value={search.guests}
+          onChange={(guests) => setSearch((s) => ({ ...s, guests }))}
         />
-      </div>
-
-      {/* Guests stepper — spans full width on mobile, auto on desktop */}
-      <div className="col-span-2 bg-paper-raised px-4 py-3.5 sm:col-span-1 sm:min-w-[9.5rem] sm:px-5 sm:py-4">
-        <span className={labelBase} id={`${inId}-glabel`}>
-          <Users width={14} height={14} />
-          Guests
-        </span>
-        <div
-          className="mt-1.5 flex max-w-[9rem] items-center justify-between gap-3 sm:max-w-none"
-          role="group"
-          aria-labelledby={`${inId}-glabel`}
-        >
-          <button
-            type="button"
-            aria-label="Fewer guests"
-            onClick={() => setGuests((g) => Math.max(1, g - 1))}
-            disabled={guests <= 1}
-            className="flex h-7 w-7 items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:bg-paper disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-          >
-            <span aria-hidden>−</span>
-          </button>
-          <span className="min-w-6 text-center font-500 tabular-nums" aria-live="polite">
-            {guests}
-          </span>
-          <button
-            type="button"
-            aria-label="More guests"
-            onClick={() => setGuests((g) => Math.min(8, g + 1))}
-            disabled={guests >= 8}
-            className="flex h-7 w-7 items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:bg-paper disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-          >
-            <span aria-hidden>+</span>
-          </button>
-        </div>
       </div>
 
       {/* Submit — full-width CTA on mobile, inline on desktop */}
